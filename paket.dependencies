@@ -1,7 +1,6 @@
 source https://nuget.org/api/v2
 
-nuget Brahma.FSharp
-nuget FSharp.Core 4.0.0.1
+nuget FSharp.Core redirects: force
 
 group Build
   source https://nuget.org/api/v2
