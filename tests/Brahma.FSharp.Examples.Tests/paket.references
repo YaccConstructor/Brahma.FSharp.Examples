@@ -1,5 +1,4 @@
-FSharp.Core
-Brahma.FSharp
+Brahma.Fsharp
 group Test
 NUnit
 NUnit.Runners
