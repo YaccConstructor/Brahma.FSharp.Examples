@@ -67,11 +67,13 @@
   -->
   <Import Project="..\..\.paket\paket.targets" />
   <ItemGroup>
-    <Compile Include="Library.fs" />
-    <None Include="Script.fsx" />
     <None Include="paket.references" />
     <None Include="paket.template" />
     <Content Include="App.config" />
+    <Compile Include="AgentsExample.fs" />
+    <Compile Include="ArrayExamples.fs" />
+    <Compile Include="FloatingPointExamples.fs" />
+    <Compile Include="MatrixExamples.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
