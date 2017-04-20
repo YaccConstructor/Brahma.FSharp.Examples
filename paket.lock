@@ -10,6 +10,7 @@ NUGET
     FSharp.Quotations.Evaluator (1.0.7)
     FSharpx.Collections (1.15.2)
       FSharp.Core
+    NUnit (2.6.4)
     OpenCL.Net (2.2.9)
     YC.PrettyPrinter (0.0.5)
       FSharp.Core

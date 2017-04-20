@@ -1,6 +1,7 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".paket", ".paket", "{63297B98-5CED-492C-A5B7-A5B4F73CF142}"
 	ProjectSection(SolutionItems) = preProject
 		paket.dependencies = paket.dependencies
@@ -34,6 +35,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{ED8079DD
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Brahma.FSharp.Examples.Tests", "tests\Brahma.FSharp.Examples.Tests\Brahma.FSharp.Examples.Tests.fsproj", "{3C42680A-560C-4752-B66B-FDD521A4BBCD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{90626CC6-F203-4CDB-9CB0-5FE3031E9ACD}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Brahma.FSharp.ArraySum", "src\Brahma.FSharp.ArraySum\Brahma.FSharp.ArraySum.fsproj", "{A8A925A5-663C-4C8F-AEB4-6A50280A72F8}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Brahma.FSharp.BlackScholes", "src\Brahma.FSharp.BlackScholes\Brahma.FSharp.BlackScholes.fsproj", "{FC624A72-857C-4438-92DB-9E8AE537999C}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Brahma.FSharp.MatrixMultiply", "src\Brahma.FSharp.MatrixMultiply\Brahma.FSharp.MatrixMultiply.fsproj", "{4669630F-E4FB-4B49-B11D-93245E6CECC4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,13 +57,29 @@ Global
 		{3C42680A-560C-4752-B66B-FDD521A4BBCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C42680A-560C-4752-B66B-FDD521A4BBCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C42680A-560C-4752-B66B-FDD521A4BBCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8A925A5-663C-4C8F-AEB4-6A50280A72F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8A925A5-663C-4C8F-AEB4-6A50280A72F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8A925A5-663C-4C8F-AEB4-6A50280A72F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8A925A5-663C-4C8F-AEB4-6A50280A72F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC624A72-857C-4438-92DB-9E8AE537999C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC624A72-857C-4438-92DB-9E8AE537999C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC624A72-857C-4438-92DB-9E8AE537999C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC624A72-857C-4438-92DB-9E8AE537999C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4669630F-E4FB-4B49-B11D-93245E6CECC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4669630F-E4FB-4B49-B11D-93245E6CECC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4669630F-E4FB-4B49-B11D-93245E6CECC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4669630F-E4FB-4B49-B11D-93245E6CECC4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{2A8C4FA0-3497-45ED-A514-69CFF3BB46D6} = {90626CC6-F203-4CDB-9CB0-5FE3031E9ACD}
 		{83F16175-43B1-4C90-A1EE-8E351C33435D} = {A6A6AF7D-D6E3-442D-9B1E-58CC91879BE1}
 		{8E6D5255-776D-4B61-85F9-73C37AA1FB9A} = {A6A6AF7D-D6E3-442D-9B1E-58CC91879BE1}
 		{3C42680A-560C-4752-B66B-FDD521A4BBCD} = {ED8079DD-2B06-4030-9F0F-DC548F98E1C4}
+		{A8A925A5-663C-4C8F-AEB4-6A50280A72F8} = {90626CC6-F203-4CDB-9CB0-5FE3031E9ACD}
+		{FC624A72-857C-4438-92DB-9E8AE537999C} = {90626CC6-F203-4CDB-9CB0-5FE3031E9ACD}
+		{4669630F-E4FB-4B49-B11D-93245E6CECC4} = {90626CC6-F203-4CDB-9CB0-5FE3031E9ACD}
 	EndGlobalSection
 EndGlobal
