@@ -1,6 +1,6 @@
 source https://nuget.org/api/v2
 
-nuget Brahma.FSharp
+nuget Brahma.FSharp prerelease
 nuget FSharp.Core 4.0.0.1
 nuget NUnit 2.6.4
 
