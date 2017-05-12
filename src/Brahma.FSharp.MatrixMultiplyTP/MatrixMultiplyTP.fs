@@ -1,15 +1,15 @@
 ﻿// Copyright (c) 2017 Kirill Smirenko <k.smirenko@gmail.com>
 // All rights reserved.
-// 
+//
 // The contents of this file are made available under the terms of the
 // Eclipse Public License v1.0 (the "License") which accompanies this
 // distribution, and is available at the following URL:
 // http://www.opensource.org/licenses/eclipse-1.0.php
-// 
+//
 // Software distributed under the License is distributed on an "AS IS" basis,
 // WITHOUT WARRANTY OF ANY KIND, either expressed or implied. See the License for
 // the specific language governing rights and limitations under the License.
-// 
+//
 // By using this software in any fashion, you are agreeing to be bound by the
 // terms of the License.
 
@@ -39,7 +39,7 @@ let iterations = 20
 let deviceType = DeviceType.Default
 
 let Run platformName =
-    // Load OpenCL C sources and headers
+    // Load OpenCL C sources and headers, as they must be included when compiling kernels
     let constants = System.IO.File.ReadAllText(constantsPath)
     let clSource = System.IO.File.ReadAllText(clSourcePath)
 
@@ -67,7 +67,7 @@ let Run platformName =
         let bValues = makeFloat32Matrix size size
         let cParallel = Array.zeroCreate(size * size)
 
-        // Quotations to be run on OpenCL with Brahma.FSharp
+        // Quotations to be compiled and run on GPU with Brahma.FSharp and OpenCL
 
         // Naive F# implementation
         let commandFs =
@@ -104,6 +104,7 @@ let Run platformName =
             // Compile one kernel
             let _, kernelPrepare, kernelRun = computeProvider.Compile(command, _additionalSources = addsrc)
             let d =(new _2D(size, size, localWorkSize, localWorkSize))
+            // Load actual parameters
             kernelPrepare d aValues bValues cParallel
 
             try
