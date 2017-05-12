@@ -32,11 +32,11 @@ let project = "Brahma.FSharp.Examples"
 
 // Short summary of the project
 // (used as description in AssemblyInfo and as a short summary for NuGet package)
-let summary = "Project has no summmary; update build.fsx"
+let summary = "Examples of Brahma.FSharp usage."
 
 // Longer description of the project
 // (used as a description for NuGet package; line breaks are automatically cleaned up)
-let description = "Project has no description; update build.fsx"
+let description = "Examples of Brahma.FSharp usage."
 
 // List of author names (for NuGet package)
 let authors = [ "SusaninaJulia" ]

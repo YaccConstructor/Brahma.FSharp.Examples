@@ -13,6 +13,7 @@
 // By using this software in any fashion, you are agreeing to be bound by the
 // terms of the License.
 
+// A test suite for benchmarking matrix multiplication algorithms on GPU
 module Brahma.FSharp.MatrixMultiplyTP
 
 open OpenCL.Net
@@ -22,27 +23,27 @@ open Brahma.FSharp.OpenCL.TypeProvider.Provided
 open Brahma.Helpers
 open Brahma.OpenCL
 
-// TP configuration
+// TypeProvider configuration
 let constantsPath = __SOURCE_DIRECTORY__ + "/MyGEMM/constants.h"
 let [<Literal>] clSourcePath = __SOURCE_DIRECTORY__ + "/MyGEMM/mygemm.cl"
 type ProvidedType = KernelProvider<clSourcePath, TreatPointersAsArrays=true>
 
-// utils
+// Utils
 let random = new System.Random()
 let makeFloat32Matrix rows cols =
     Array.init (rows * cols) (fun i -> random.NextDouble() |> float32)
 
-// configuration
+// Benchmark configuration
 let matrixSizes = [128; 256; 512; 1024; 2048]
 let iterations = 20
 let deviceType = DeviceType.Default
 
 let Run platformName =
-    // load OpenCL C sources and headers
+    // Load OpenCL C sources and headers
     let constants = System.IO.File.ReadAllText(constantsPath)
     let clSource = System.IO.File.ReadAllText(clSourcePath)
 
-    // init compute resources
+    // Init compute resources
     let computeProvider =
         try ComputeProvider.Create(platformName, deviceType)
         with
@@ -52,9 +53,10 @@ let Run platformName =
     let lws, ex = OpenCL.Net.Cl.GetDeviceInfo(device, OpenCL.Net.DeviceInfo.MaxWorkGroupSize)
     let maxLocalWorkSize = int <| lws.CastTo<uint64>()
 
+    // Command queue for launching code on GPU
     let mutable commandQueue = new CommandQueue(computeProvider, device)
 
-    // main loop - launching & time calculating
+    // Main loop - launching & time calculating
     printfn "Device: %A" computeProvider
     printfn "Will do %A iterations for all matrices." iterations
     for size in matrixSizes do
@@ -65,6 +67,9 @@ let Run platformName =
         let bValues = makeFloat32Matrix size size
         let cParallel = Array.zeroCreate(size * size)
 
+        // Quotations to be run on OpenCL with Brahma.FSharp
+
+        // Naive F# implementation
         let commandFs =
             <@
                 fun (r:_2D) (a:array<_>) (b:array<_>) (c:array<_>) -> 
@@ -75,11 +80,13 @@ let Run platformName =
                         buf <- buf + (a.[ty * size + k] * b.[k * size + tx])
                     c.[ty * size + tx] <- buf
             @>
+        // Naive OpenCL C implementation
         let command1 =
             <@
                 fun (r:_2D) (a:array<_>) (b:array<_>) (c:array<_>) ->
                     ProvidedType.myGEMM1(size, size, size, a, b, c)
             @>
+        // Tiled and coalesced OpenCL C implementation
         let command2 =
             <@
                 fun (r:_2D) (a:array<_>) (b:array<_>) (c:array<_>) ->
@@ -94,19 +101,19 @@ let Run platformName =
             ]
 
         for command, addsrc, desc in configs do
-            let outCode = ref ""
-            let _, kernelPrepare, kernelRun = computeProvider.Compile(command, _outCode = outCode, _additionalSources = addsrc)
+            // Compile one kernel
+            let _, kernelPrepare, kernelRun = computeProvider.Compile(command, _additionalSources = addsrc)
             let d =(new _2D(size, size, localWorkSize, localWorkSize))
-            //let d =(new _2D(size, size))
             kernelPrepare d aValues bValues cParallel
 
-            //printf "%12s:\t" desc
             try
                 for i in 0 .. iterations - 1 do
                     Timer<string>.Global.Start()
+                    // Run one kernel on GPU
                     let _ = commandQueue.Add(kernelRun()).Finish()
                     Timer<string>.Global.Lap("OpenCL")
 
+                // Retrieve output matrix (stored sequentially in cParallel) from GPU
                 let _ = commandQueue.Add(cParallel.ToHost computeProvider).Finish()
 
                 let avgTime = Timer<string>.Global.Average("OpenCL")
