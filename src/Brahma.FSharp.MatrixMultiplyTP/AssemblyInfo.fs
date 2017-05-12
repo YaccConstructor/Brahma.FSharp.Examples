@@ -2,7 +2,7 @@
 namespace System
 open System.Reflection
 
-[<assembly: AssemblyTitleAttribute("Brahma.FSharp.ArraySum")>]
+[<assembly: AssemblyTitleAttribute("Brahma.FSharp.MatrixMultiplyTP")>]
 [<assembly: AssemblyProductAttribute("Brahma.FSharp.Examples")>]
 [<assembly: AssemblyDescriptionAttribute("Examples of Brahma.FSharp usage.")>]
 [<assembly: AssemblyVersionAttribute("1.0")>]
@@ -11,7 +11,7 @@ open System.Reflection
 do ()
 
 module internal AssemblyVersionInformation =
-    let [<Literal>] AssemblyTitle = "Brahma.FSharp.ArraySum"
+    let [<Literal>] AssemblyTitle = "Brahma.FSharp.MatrixMultiplyTP"
     let [<Literal>] AssemblyProduct = "Brahma.FSharp.Examples"
     let [<Literal>] AssemblyDescription = "Examples of Brahma.FSharp usage."
     let [<Literal>] AssemblyVersion = "1.0"

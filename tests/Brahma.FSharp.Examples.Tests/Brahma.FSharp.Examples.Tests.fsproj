@@ -123,6 +123,11 @@
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
+        <Reference Include="Brahma.FSharp.OpenCL.TypeProvider">
+          <HintPath>..\..\packages\Brahma.FSharp\lib\net45\Brahma.FSharp.OpenCL.TypeProvider.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
         <Reference Include="Brahma.Helpers">
           <HintPath>..\..\packages\Brahma.FSharp\lib\net45\Brahma.Helpers.dll</HintPath>
           <Private>True</Private>
