@@ -24,7 +24,6 @@
     <div class="container">
       <div class="masthead">
         <ul class="nav nav-pills pull-right">
-          <li><a href="http://fsharp.org">fsharp.org</a></li>
           <li><a href="https://github.com/SusaninaJulia/Brahma.FSharp.Examples">github page</a></li>
         </ul>
         <h3 class="muted"><a href="/Brahma.FSharp.Examples/index.html">Brahma.FSharp.Examples</a></h3>
@@ -34,36 +33,115 @@
         <div class="span9" id="main">
           
 <h1><a name="Brahma-FSharp-Examples" class="anchor" href="#Brahma-FSharp-Examples">Brahma.FSharp.Examples</a></h1>
-<p>Documentation</p>
+<p>Examples of Brahma.FSharp usage.</p>
+<h2><a name="Brahma-FSharp" class="anchor" href="#Brahma-FSharp">Brahma.FSharp</a></h2>
+<p>Brahma.FSharp is aimed to creation tool for heterogeneous systems (multicore CPU + many GPGPUs) programming.
+F# quotation translator is used for integration with GPGPU, and wide range of F# primitives for parallel an
+asynchronous programming (MailboxProcessor, async, Array.Paralle, etc) simplifies utilization of heterogeneous
+systems.</p>
 <div class="row">
   <div class="span1"></div>
   <div class="span6">
     <div class="well well-small" id="nuget">
-      The Brahma.FSharp.Examples library can be <a href="https://nuget.org/packages/Brahma.FSharp.Examples">installed from NuGet</a>:
-      <pre>PM> Install-Package Brahma.FSharp.Examples</pre>
+      The Brahma.FSharp library can be <a href="https://nuget.org/packages/Brahma.FSharp">installed from NuGet</a>:
+      <pre>PM> Install-Package Brahma.FSharp</pre>
     </div>
   </div>
   <div class="span1"></div>
 </div>
+<p>Features of Brahma.FSharp:</p>
+<ul>
+<li>We are aimed to translate native F# code to OpenCL with minimization of different wrappers and custom types.</li>
+<li>
+We use OpenCL for communication with GPU. So, you can work not only with NVIDIA hardware but with any device, 
+which support OpenCL (e.g. with AMD devices).
+</li>
+<li>We support tuples and structures.</li>
+<li>We can use strongly typed kernels from OpenCL code in F#.</li>
+</ul>
 <h2><a name="Example" class="anchor" href="#Example">Example</a></h2>
-<p>This example demonstrates using a function defined in this sample library.</p>
-<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
-<span class="l">2: </span>
-<span class="l">3: </span>
-<span class="l">4: </span>
+<p>This example demonstrates using a function defined in this library.
+Following function computes the result of the addition of matrix 'mat2' to the matrix 'mat1'</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+<span class="l">21: </span>
+<span class="l">22: </span>
+<span class="l">23: </span>
+<span class="l">24: </span>
+<span class="l">25: </span>
+<span class="l">26: </span>
+<span class="l">27: </span>
+<span class="l">28: </span>
+<span class="l">29: </span>
+<span class="l">30: </span>
+<span class="l">31: </span>
+<span class="l">32: </span>
+<span class="l">33: </span>
+<span class="l">34: </span>
+<span class="l">35: </span>
+<span class="l">36: </span>
+<span class="l">37: </span>
 </pre></td>
-<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="prep">#r</span> <span class="s">&quot;Brahma.FSharp.Examples.dll&quot;</span>
-<span class="k">open</span> <span class="i">Brahma</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">FSharp</span><span class="o">.</span><span class="i">Examples</span>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span class="i">Addition</span> (<span class="i">mat1</span><span class="o">:</span> <span class="i">array</span><span class="o">&lt;</span><span class="i">float</span><span class="o">&gt;</span>) (<span class="i">mat2</span><span class="o">:</span> <span class="i">array</span><span class="o">&lt;</span><span class="i">float</span><span class="o">&gt;</span>) <span class="i">rows</span> <span class="i">columns</span> <span class="o">=</span>
 
-<span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="f">printfn</span> <span class="s">&quot;hello = </span><span class="pf">%i</span><span class="s">&quot;</span> <span class="o">&lt;|</span> <span class="i">Library</span><span class="o">.</span><span class="i">hello</span> <span class="n">0</span>
+    <span class="k">let</span> <span class="i">localWorkSize0</span> <span class="o">=</span> <span class="n">2</span>
+    <span class="k">let</span> <span class="i">localWorkSize1</span> <span class="o">=</span> <span class="n">2</span>
+    <span class="k">let</span> <span class="i">platformName</span> <span class="o">=</span> <span class="s">&quot;NVIDIA*&quot;</span>
+    <span class="k">let</span> <span class="i">deviceType</span> <span class="o">=</span> <span class="i">DeviceType</span><span class="o">.</span><span class="i">Default</span>        
+    
+    <span class="k">let</span> <span class="i">provider</span> <span class="o">=</span>
+        <span class="k">try</span>  <span class="i">ComputeProvider</span><span class="o">.</span><span class="i">Create</span>(<span class="i">platformName</span>, <span class="i">deviceType</span>)
+        <span class="k">with</span> 
+        | <span class="i">ex</span> <span class="k">-&gt;</span> <span class="i">failwith</span> <span class="i">ex</span><span class="o">.</span><span class="i">Message</span>
+   
+    <span class="k">let</span> <span class="i">commandQueue</span> <span class="o">=</span> <span class="k">new</span> <span class="i">CommandQueue</span>(<span class="i">provider</span>, <span class="i">provider</span><span class="o">.</span><span class="i">Devices</span> <span class="o">|&gt;</span> <span class="i">Seq</span><span class="o">.</span><span class="i">head</span>)    
+
+    <span class="k">let</span> <span class="i">command</span> <span class="o">=</span> 
+        &lt;@
+            <span class="k">fun</span> (<span class="i">rng</span><span class="o">:</span><span class="i">_2D</span>) (<span class="i">a</span><span class="o">:</span><span class="i">array</span><span class="o">&lt;</span>_<span class="o">&gt;</span>) (<span class="i">b</span><span class="o">:</span><span class="i">array</span><span class="o">&lt;</span>_<span class="o">&gt;</span>) (<span class="i">c</span><span class="o">:</span><span class="i">array</span><span class="o">&lt;</span>_<span class="o">&gt;</span>) <span class="k">-&gt;</span>
+                <span class="k">let</span> <span class="i">x</span> <span class="o">=</span> <span class="i">rng</span><span class="o">.</span><span class="i">GlobalID1</span>
+                <span class="k">let</span> <span class="i">y</span> <span class="o">=</span> <span class="i">rng</span><span class="o">.</span><span class="i">GlobalID0</span>                
+                <span class="i">c</span><span class="o">.</span>[<span class="i">y</span> <span class="o">*</span> <span class="i">columns</span> <span class="o">+</span> <span class="i">x</span>] <span class="o">&lt;-</span> <span class="i">a</span><span class="o">.</span>[<span class="i">y</span> <span class="o">*</span> <span class="i">columns</span> <span class="o">+</span> <span class="i">x</span>] <span class="o">+</span> <span class="i">b</span><span class="o">.</span>[<span class="i">y</span> <span class="o">*</span> <span class="i">columns</span> <span class="o">+</span> <span class="i">x</span>] 
+        @&gt;
+
+    <span class="k">let</span> <span class="i">a</span> <span class="o">=</span> <span class="i">mat1</span>
+    <span class="k">let</span> <span class="i">b</span> <span class="o">=</span> <span class="i">mat2</span>
+    <span class="k">let</span> <span class="i">res</span> <span class="o">=</span> <span class="i">Array</span><span class="o">.</span><span class="i">zeroCreate</span>(<span class="i">rows</span> <span class="o">*</span> <span class="i">columns</span>)
+
+    <span class="k">let</span> <span class="i">kernel</span>, <span class="i">kernelPrepare</span>, <span class="i">kernelRun</span> <span class="o">=</span> <span class="i">provider</span><span class="o">.</span><span class="i">Compile</span> <span class="i">command</span>
+    <span class="k">let</span> <span class="i">d</span> <span class="o">=</span>(<span class="k">new</span> <span class="i">_2D</span>(<span class="i">rows</span>, <span class="i">columns</span>, <span class="i">localWorkSize0</span>, <span class="i">localWorkSize1</span>))
+    <span class="i">kernelPrepare</span> <span class="i">d</span> <span class="i">a</span> <span class="i">b</span> <span class="i">res</span>
+
+    <span class="k">let</span> _ <span class="o">=</span> <span class="i">commandQueue</span><span class="o">.</span><span class="i">Add</span>(<span class="i">kernelRun</span>())
+    <span class="k">let</span> _ <span class="o">=</span> <span class="i">commandQueue</span><span class="o">.</span><span class="i">Add</span>(<span class="i">res</span><span class="o">.</span><span class="i">ToHost</span> <span class="i">provider</span>)<span class="o">.</span><span class="i">Finish</span>()
+    <span class="i">commandQueue</span><span class="o">.</span><span class="i">Dispose</span>()
+    <span class="i">provider</span><span class="o">.</span><span class="i">Dispose</span>()
+    <span class="i">provider</span><span class="o">.</span><span class="i">CloseAllBuffers</span>()
+
+    <span class="i">res</span>
 </code></pre></td>
 </tr>
 </table>
-<p>Some more info</p>
+<p>See more examples <a href="tutorial.html">here</a></p>
 <h2><a name="Samples-amp-documentation" class="anchor" href="#Samples-amp-documentation">Samples &amp; documentation</a></h2>
-<p>The library comes with comprehensible documentation.
-It can include tutorials automatically generated from <code>*.fsx</code> files in <a href="https://github.com/fsprojects/Brahma.FSharp.Examples/tree/master/docs/content">the content folder</a>.
-The API reference is automatically generated from Markdown comments in the library implementation.</p>
 <ul>
 <li><p><a href="tutorial.html">Tutorial</a> contains a further explanation of this sample library.</p></li>
 <li>
@@ -73,16 +151,14 @@ functions.</p>
 </li>
 </ul>
 <h2><a name="Contributing-and-copyright" class="anchor" href="#Contributing-and-copyright">Contributing and copyright</a></h2>
-<p>The project is hosted on <a href="https://github.com/fsprojects/Brahma.FSharp.Examples">GitHub</a> where you can <a href="https://github.com/fsprojects/Brahma.FSharp.Examples/issues">report issues</a>, fork
+<p>The project is hosted on <a href="https://github.com/YaccConstructor/Brahma.FSharp.Examples">GitHub</a> where you can <a href="https://github.com/YaccConstructor/Brahma.FSharp.Examples/issues">report issues</a>, fork
 the project and submit pull requests. If you're adding a new public API, please also
-consider adding <a href="https://github.com/fsprojects/Brahma.FSharp.Examples/tree/master/docs/content">samples</a> that can be turned into a documentation. You might
-also want to read the <a href="https://github.com/fsprojects/Brahma.FSharp.Examples/blob/master/README.md">library design notes</a> to understand how it works.</p>
+consider adding <a href="https://github.com/YaccConstructor/Brahma.FSharp.Examples/tree/master/docs/content">samples</a> that can be turned into a documentation. You might
+also want to read the <a href="https://github.com/YaccConstructor/Brahma.FSharp.Examples/blob/master/README.md">library design notes</a> to understand how it works.</p>
 <p>The library is available under Public Domain license, which allows modification and
 redistribution for both commercial and non-commercial purposes. For more information see the
-<a href="https://github.com/fsprojects/Brahma.FSharp.Examples/blob/master/LICENSE.txt">License file</a> in the GitHub repository.</p>
+<a href="https://github.com/YaccConstructor/Brahma.FSharp.Examples/blob/master/LICENSE.txt">License file</a> in the GitHub repository.</p>
 
-<div class="tip" id="fs1">namespace Microsoft.FSharp</div>
-<div class="tip" id="fs2">val printfn : format:Printf.TextWriterFormat&lt;&#39;T&gt; -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.printfn</div>
 
         </div>
         <div class="span3">
@@ -91,7 +167,7 @@ redistribution for both commercial and non-commercial purposes. For more informa
             <li class="nav-header">Brahma.FSharp.Examples</li>
             <li><a href="/Brahma.FSharp.Examples/index.html">Home page</a></li>
             <li class="divider"></li>
-            <li><a href="http://nuget.org/packages/Brahma.FSharp.Examples">Get Library via NuGet</a></li>
+            <li><a href="http://nuget.org/packages/Brahma.FSharp">Get Library via NuGet</a></li>
             <li><a href="https://github.com/SusaninaJulia/Brahma.FSharp.Examples">Source Code on GitHub</a></li>
             <li><a href="/Brahma.FSharp.Examples/license.html">License</a></li>
             <li><a href="/Brahma.FSharp.Examples/release-notes.html">Release Notes</a></li>
