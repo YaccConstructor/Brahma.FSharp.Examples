@@ -517,7 +517,54 @@
 </code></pre></td>
 </tr>
 </table>
-<p>Some more info</p>
+<h2><a name="StructureExamples" class="anchor" href="#StructureExamples">StructureExamples</a></h2>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp">[&lt;<span class="i">Struct</span>&gt;]
+<span class="k">type</span> <span class="i">testStuct</span> <span class="o">=</span> 
+    <span class="k">val</span> <span class="i">x</span><span class="o">:</span> <span class="i">int</span> 
+    <span class="k">val</span> <span class="i">y</span><span class="o">:</span> <span class="i">int</span>     
+     <span class="k">new</span> (<span class="i">x1</span>, <span class="i">y1</span>) <span class="o">=</span> {<span class="i">x</span> <span class="o">=</span> <span class="i">x1</span>; <span class="i">y</span> <span class="o">=</span> <span class="i">y1</span>}
+<span class="k">let</span> <span class="i">command</span> <span class="o">=</span> 
+    &lt;@ 
+        <span class="k">fun</span> (<span class="i">range</span><span class="o">:</span><span class="i">_1D</span>) (<span class="i">buf</span><span class="o">:</span><span class="i">array</span><span class="o">&lt;</span><span class="i">int</span><span class="o">&gt;</span>) <span class="k">-&gt;</span> 
+            <span class="k">let</span> <span class="i">s</span> <span class="o">=</span> <span class="k">new</span> <span class="i">testStruct</span> (<span class="n">1</span>, <span class="n">2</span>)
+            <span class="i">buf</span><span class="o">.</span>[<span class="n">0</span>] <span class="o">&lt;-</span> <span class="i">s</span><span class="o">.</span><span class="i">x</span>
+            <span class="i">buf</span><span class="o">.</span>[<span class="n">1</span>] <span class="o">&lt;-</span> <span class="i">s</span><span class="o">.</span><span class="i">y</span>
+    @&gt;
+</code></pre></td>
+</tr>
+</table>
+<h2><a name="TupleExamples" class="anchor" href="#TupleExamples">TupleExamples</a></h2>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span class="i">command</span> <span class="o">=</span> 
+    &lt;@ 
+        <span class="k">fun</span> (<span class="i">range</span><span class="o">:</span><span class="i">_1D</span>) (<span class="i">buf</span><span class="o">:</span><span class="i">array</span><span class="o">&lt;</span><span class="i">int</span><span class="o">&gt;</span>) (<span class="i">a</span><span class="o">:</span><span class="i">int</span><span class="o">*</span><span class="i">int</span>) (<span class="i">b</span><span class="o">:</span><span class="i">int</span><span class="o">*</span><span class="i">byte</span><span class="o">*</span><span class="i">int</span>)<span class="k">-&gt;</span> 
+            <span class="k">let</span> <span class="i">c</span> <span class="o">=</span> (<span class="n">3</span>, <span class="n">4</span>)
+            <span class="i">buf</span><span class="o">.</span>[<span class="n">0</span>] <span class="o">&lt;-</span> <span class="i">fst</span> <span class="i">a</span> <span class="o">+</span> <span class="i">snd</span> <span class="i">c</span>
+            <span class="i">buf</span><span class="o">.</span>[<span class="n">1</span>] <span class="o">&lt;-</span> <span class="i">third</span> <span class="i">b</span> 
+    @&gt;
+</code></pre></td>
+</tr>
+</table>
 
 
         </div>
@@ -537,8 +584,8 @@
 
             <li class="nav-header">Documentation</li>
             <li><a href="/Brahma.FSharp.Examples/reference/index.html">API Reference</a></li>
-			
-			<li class="nav-header">Reports</li>
+              
+            <li class="nav-header">Reports</li>
             <li><a href="https://docs.google.com/document/d/1-yrWay3z8YpL80gJd9tur9TFfG4RduuXDIr21do4JS8/edit">Brahma.FSharp + MailboxProcessor</a></li>
           </ul>
         </div>
