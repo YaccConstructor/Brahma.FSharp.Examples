@@ -12,10 +12,7 @@ Examples of Brahma.FSharp usage.
 Brahma.FSharp
 -------------
 
-Brahma.FSharp is aimed to creation tool for heterogeneous systems (multicore CPU + many GPGPUs) programming. 
-F# quotation translator is used for integration with GPGPU, and wide range of F# primitives for parallel an 
-asynchronous programming (MailboxProcessor, async, Array.Paralle, etc) simplifies utilization of heterogeneous 
-systems.
+Brahma.FSharp is a library for F# quotations to OpenCL translation.
 
 <div class="row">
   <div class="span1"></div>
@@ -32,7 +29,7 @@ Features of Brahma.FSharp:
 
  * We are aimed to translate native F# code to OpenCL with minimization of different wrappers and custom types.
  * We use OpenCL for communication with GPU. So, you can work not only with NVIDIA hardware but with any device, 
-which support OpenCL (e.g. with AMD devices).
+which supports OpenCL (e.g. with AMD devices).
  * We support tuples and structures.
  * We can use strongly typed kernels from OpenCL code in F#.
 
