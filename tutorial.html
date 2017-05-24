@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
-    <title>Introducing your project
+    <title>Usage examples
 </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="description" content="Project has no summmary; update build.fsx"/>
@@ -24,7 +24,6 @@
     <div class="container">
       <div class="masthead">
         <ul class="nav nav-pills pull-right">
-          <li><a href="http://fsharp.org">fsharp.org</a></li>
           <li><a href="https://github.com/SusaninaJulia/Brahma.FSharp.Examples">github page</a></li>
         </ul>
         <h3 class="muted"><a href="/Brahma.FSharp.Examples/index.html">Brahma.FSharp.Examples</a></h3>
@@ -33,23 +32,493 @@
       <div class="row">
         <div class="span9" id="main">
           
-<h1><a name="Introducing-your-project" class="anchor" href="#Introducing-your-project">Introducing your project</a></h1>
-<p>Say more</p>
-<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
-<span class="l">2: </span>
-<span class="l">3: </span>
-<span class="l">4: </span>
+<h1><a name="Usage-examples" class="anchor" href="#Usage-examples">Usage examples</a></h1>
+<h2><a name="ArrayExamples" class="anchor" href="#ArrayExamples">ArrayExamples</a></h2>
+<ul>
+<li>Following function generates an array filled with Fibonacci numbers</li>
+</ul>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+<span class="l">21: </span>
+<span class="l">22: </span>
+<span class="l">23: </span>
+<span class="l">24: </span>
+<span class="l">25: </span>
+<span class="l">26: </span>
+<span class="l">27: </span>
+<span class="l">28: </span>
+<span class="l">29: </span>
+<span class="l">30: </span>
+<span class="l">31: </span>
+<span class="l">32: </span>
 </pre></td>
-<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="prep">#r</span> <span class="s">&quot;Brahma.FSharp.Examples.dll&quot;</span>
-<span class="k">open</span> <span class="i">Brahma</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">FSharp</span><span class="o">.</span><span class="i">Examples</span>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span class="i">Fib</span> <span class="i">length</span> <span class="o">=</span>
+    <span class="k">let</span> <span class="i">localWorkSize</span> <span class="o">=</span> <span class="n">20</span>
+    <span class="k">let</span> <span class="i">platformName</span> <span class="o">=</span> <span class="s">&quot;NVIDIA*&quot;</span>
+    <span class="k">let</span> <span class="i">deviceType</span> <span class="o">=</span> <span class="i">DeviceType</span><span class="o">.</span><span class="i">Default</span>
+    
+    <span class="k">let</span> <span class="i">provider</span> <span class="o">=</span>
+        <span class="k">try</span>  <span class="i">ComputeProvider</span><span class="o">.</span><span class="i">Create</span>(<span class="i">platformName</span>, <span class="i">deviceType</span>)
+        <span class="k">with</span> 
+        | <span class="i">ex</span> <span class="k">-&gt;</span> <span class="i">failwith</span> <span class="i">ex</span><span class="o">.</span><span class="i">Message</span>
+   
+    <span class="k">let</span> <span class="i">commandQueue</span> <span class="o">=</span> <span class="k">new</span> <span class="i">CommandQueue</span>(<span class="i">provider</span>, <span class="i">provider</span><span class="o">.</span><span class="i">Devices</span> <span class="o">|&gt;</span> <span class="i">Seq</span><span class="o">.</span><span class="i">head</span>)    
 
-<span class="i">Library</span><span class="o">.</span><span class="i">hello</span> <span class="n">0</span>
+    <span class="k">let</span> <span class="i">command</span> <span class="o">=</span> 
+        &lt;@
+            <span class="k">fun</span> (<span class="i">rng</span><span class="o">:</span><span class="i">_1D</span>) (<span class="i">a</span><span class="o">:</span><span class="i">array</span><span class="o">&lt;</span>_<span class="o">&gt;</span>) <span class="k">-&gt;</span>
+                <span class="k">for</span> <span class="i">i</span> <span class="k">in</span> <span class="n">2</span> <span class="o">..</span> <span class="i">length</span> <span class="o">-</span> <span class="n">1</span> <span class="k">do</span>
+                    <span class="i">a</span><span class="o">.</span>[<span class="i">i</span>] <span class="o">&lt;-</span> <span class="i">a</span><span class="o">.</span>[<span class="i">i</span> <span class="o">-</span> <span class="n">1</span>] <span class="o">+</span> <span class="i">a</span><span class="o">.</span>[<span class="i">i</span> <span class="o">-</span> <span class="n">2</span>]
+        @&gt;
+
+    <span class="k">let</span> <span class="i">a</span> <span class="o">=</span> <span class="i">Array</span><span class="o">.</span><span class="i">init</span> (<span class="i">length</span>) (<span class="k">fun</span> <span class="i">i</span> <span class="k">-&gt;</span> <span class="i">int64</span>(<span class="n">1</span>))
+
+    <span class="k">let</span> <span class="i">kernel</span>, <span class="i">kernelPrepare</span>, <span class="i">kernelRun</span> <span class="o">=</span> <span class="i">provider</span><span class="o">.</span><span class="i">Compile</span> <span class="i">command</span>
+    <span class="k">let</span> <span class="i">d</span> <span class="o">=</span>(<span class="k">new</span> <span class="i">_1D</span>(<span class="i">length</span>, <span class="i">localWorkSize</span>))
+    <span class="i">kernelPrepare</span> <span class="i">d</span> <span class="i">a</span>
+
+    <span class="k">let</span> _ <span class="o">=</span> <span class="i">commandQueue</span><span class="o">.</span><span class="i">Add</span>(<span class="i">kernelRun</span>())
+    <span class="k">let</span> _ <span class="o">=</span> <span class="i">commandQueue</span><span class="o">.</span><span class="i">Add</span>(<span class="i">a</span><span class="o">.</span><span class="i">ToHost</span> <span class="i">provider</span>)<span class="o">.</span><span class="i">Finish</span>()
+    <span class="i">commandQueue</span><span class="o">.</span><span class="i">Dispose</span>()
+    <span class="i">provider</span><span class="o">.</span><span class="i">Dispose</span>()
+    <span class="i">provider</span><span class="o">.</span><span class="i">CloseAllBuffers</span>()
+
+    <span class="i">a</span>
+</code></pre></td>
+</tr>
+</table>
+<ul>
+<li>Following function makes elements of the array arr to equal 0 in range of [firstElement, lastElement]</li>
+</ul>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+<span class="l">21: </span>
+<span class="l">22: </span>
+<span class="l">23: </span>
+<span class="l">24: </span>
+<span class="l">25: </span>
+<span class="l">26: </span>
+<span class="l">27: </span>
+<span class="l">28: </span>
+<span class="l">29: </span>
+<span class="l">30: </span>
+<span class="l">31: </span>
+<span class="l">32: </span>
+<span class="l">33: </span>
+<span class="l">34: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span class="i">Nulify</span> (<span class="i">arr</span><span class="o">:</span> <span class="i">array</span><span class="o">&lt;</span>_<span class="o">&gt;</span>) <span class="i">length</span> <span class="i">firstElement</span> <span class="i">lastElement</span> <span class="o">=</span>
+    <span class="k">let</span> <span class="i">localWorkSize</span> <span class="o">=</span> <span class="n">20</span>
+    <span class="k">let</span> <span class="i">platformName</span> <span class="o">=</span> <span class="s">&quot;NVIDIA*&quot;</span>
+    <span class="k">let</span> <span class="i">deviceType</span> <span class="o">=</span> <span class="i">DeviceType</span><span class="o">.</span><span class="i">Default</span>
+    
+    <span class="k">if</span> <span class="i">firstElement</span> <span class="o">&gt;</span><span class="o">=</span> <span class="i">lastElement</span>
+    <span class="k">then</span> <span class="i">failwith</span> <span class="s">&quot;Invalid indexes&quot;</span>
+
+    <span class="k">let</span> <span class="i">provider</span> <span class="o">=</span>
+        <span class="k">try</span>  <span class="i">ComputeProvider</span><span class="o">.</span><span class="i">Create</span>(<span class="i">platformName</span>, <span class="i">deviceType</span>)
+        <span class="k">with</span> 
+        | <span class="i">ex</span> <span class="k">-&gt;</span> <span class="i">failwith</span> <span class="i">ex</span><span class="o">.</span><span class="i">Message</span>
+   
+    <span class="k">let</span> <span class="i">commandQueue</span> <span class="o">=</span> <span class="k">new</span> <span class="i">CommandQueue</span>(<span class="i">provider</span>, <span class="i">provider</span><span class="o">.</span><span class="i">Devices</span> <span class="o">|&gt;</span> <span class="i">Seq</span><span class="o">.</span><span class="i">head</span>)    
+
+    <span class="k">let</span> <span class="i">command</span> <span class="o">=</span> 
+        &lt;@
+            <span class="k">fun</span> (<span class="i">rng</span><span class="o">:</span><span class="i">_1D</span>) (<span class="i">a</span><span class="o">:</span><span class="i">array</span><span class="o">&lt;</span>_<span class="o">&gt;</span>) <span class="k">-&gt;</span>
+                <span class="k">let</span> <span class="i">i</span> <span class="o">=</span> <span class="i">rng</span><span class="o">.</span><span class="i">GlobalID0</span>
+                <span class="k">if</span> (<span class="i">i</span> <span class="o">&gt;</span><span class="o">=</span> <span class="i">firstElement</span>) <span class="o">&amp;&amp;</span> (<span class="i">i</span> <span class="o">&lt;=</span> <span class="i">lastElement</span>)
+                <span class="k">then</span> <span class="i">a</span><span class="o">.</span>[<span class="i">i</span>] <span class="o">&lt;-</span> <span class="n">0</span>
+        @&gt;
+
+    <span class="k">let</span> <span class="i">kernel</span>, <span class="i">kernelPrepare</span>, <span class="i">kernelRun</span> <span class="o">=</span> <span class="i">provider</span><span class="o">.</span><span class="i">Compile</span> <span class="i">command</span>
+    <span class="k">let</span> <span class="i">d</span> <span class="o">=</span>(<span class="k">new</span> <span class="i">_1D</span>(<span class="i">length</span>, <span class="i">localWorkSize</span>))
+    <span class="i">kernelPrepare</span> <span class="i">d</span> <span class="i">arr</span>
+
+    <span class="k">let</span> _ <span class="o">=</span> <span class="i">commandQueue</span><span class="o">.</span><span class="i">Add</span>(<span class="i">kernelRun</span>())
+    <span class="k">let</span> _ <span class="o">=</span> <span class="i">commandQueue</span><span class="o">.</span><span class="i">Add</span>(<span class="i">arr</span><span class="o">.</span><span class="i">ToHost</span> <span class="i">provider</span>)<span class="o">.</span><span class="i">Finish</span>()
+    <span class="i">commandQueue</span><span class="o">.</span><span class="i">Dispose</span>()
+    <span class="i">provider</span><span class="o">.</span><span class="i">Dispose</span>()
+    <span class="i">provider</span><span class="o">.</span><span class="i">CloseAllBuffers</span>()
+
+    <span class="i">arr</span>
+</code></pre></td>
+</tr>
+</table>
+<ul>
+<li>Following function reverts the array arr</li>
+</ul>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+<span class="l">21: </span>
+<span class="l">22: </span>
+<span class="l">23: </span>
+<span class="l">24: </span>
+<span class="l">25: </span>
+<span class="l">26: </span>
+<span class="l">27: </span>
+<span class="l">28: </span>
+<span class="l">29: </span>
+<span class="l">30: </span>
+<span class="l">31: </span>
+<span class="l">32: </span>
+<span class="l">33: </span>
+<span class="l">34: </span>
+<span class="l">35: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span class="i">Reflect</span> (<span class="i">arr</span><span class="o">:</span> <span class="i">array</span><span class="o">&lt;</span>_<span class="o">&gt;</span>) <span class="i">length</span> <span class="o">=</span>
+    <span class="k">let</span> <span class="i">localWorkSize</span> <span class="o">=</span> <span class="n">20</span>
+    <span class="k">let</span> <span class="i">platformName</span> <span class="o">=</span> <span class="s">&quot;NVIDIA*&quot;</span>
+    <span class="k">let</span> <span class="i">deviceType</span> <span class="o">=</span> <span class="i">DeviceType</span><span class="o">.</span><span class="i">Default</span>
+    
+    <span class="k">if</span> <span class="i">length</span> <span class="o">&lt;=</span> <span class="n">1</span> 
+    <span class="k">then</span> <span class="i">failwith</span> <span class="s">&quot;Invalid length&quot;</span>
+    
+    <span class="k">let</span> <span class="i">provider</span> <span class="o">=</span>
+        <span class="k">try</span>  <span class="i">ComputeProvider</span><span class="o">.</span><span class="i">Create</span>(<span class="i">platformName</span>, <span class="i">deviceType</span>)
+        <span class="k">with</span> 
+        | <span class="i">ex</span> <span class="k">-&gt;</span> <span class="i">failwith</span> <span class="i">ex</span><span class="o">.</span><span class="i">Message</span>
+   
+    <span class="k">let</span> <span class="i">commandQueue</span> <span class="o">=</span> <span class="k">new</span> <span class="i">CommandQueue</span>(<span class="i">provider</span>, <span class="i">provider</span><span class="o">.</span><span class="i">Devices</span> <span class="o">|&gt;</span> <span class="i">Seq</span><span class="o">.</span><span class="i">head</span>)    
+
+    <span class="k">let</span> <span class="i">command</span> <span class="o">=</span> 
+        &lt;@
+            <span class="k">fun</span> (<span class="i">rng</span><span class="o">:</span><span class="i">_1D</span>) (<span class="i">a</span><span class="o">:</span><span class="i">array</span><span class="o">&lt;</span>_<span class="o">&gt;</span>) <span class="k">-&gt;</span>
+                <span class="k">let</span> <span class="i">i</span> <span class="o">=</span> <span class="i">rng</span><span class="o">.</span><span class="i">GlobalID0</span>
+                <span class="k">let</span> <span class="i">buff</span> <span class="o">=</span> <span class="i">a</span><span class="o">.</span>[<span class="i">i</span>] 
+                <span class="i">a</span><span class="o">.</span>[<span class="i">i</span>] <span class="o">&lt;-</span> <span class="i">a</span><span class="o">.</span>[<span class="i">length</span> <span class="o">-</span> <span class="i">i</span>]
+                <span class="i">a</span><span class="o">.</span>[<span class="i">length</span> <span class="o">-</span> <span class="i">i</span>] <span class="o">&lt;-</span> <span class="i">buff</span>
+        @&gt;
+
+    <span class="k">let</span> <span class="i">kernel</span>, <span class="i">kernelPrepare</span>, <span class="i">kernelRun</span> <span class="o">=</span> <span class="i">provider</span><span class="o">.</span><span class="i">Compile</span> <span class="i">command</span>
+    <span class="k">let</span> <span class="i">d</span> <span class="o">=</span>(<span class="k">new</span> <span class="i">_1D</span>(<span class="i">length</span>, <span class="i">localWorkSize</span>))
+    <span class="i">kernelPrepare</span> <span class="i">d</span> <span class="i">arr</span>
+
+    <span class="k">let</span> _ <span class="o">=</span> <span class="i">commandQueue</span><span class="o">.</span><span class="i">Add</span>(<span class="i">kernelRun</span>())
+    <span class="k">let</span> _ <span class="o">=</span> <span class="i">commandQueue</span><span class="o">.</span><span class="i">Add</span>(<span class="i">arr</span><span class="o">.</span><span class="i">ToHost</span> <span class="i">provider</span>)<span class="o">.</span><span class="i">Finish</span>()
+    <span class="i">commandQueue</span><span class="o">.</span><span class="i">Dispose</span>()
+    <span class="i">provider</span><span class="o">.</span><span class="i">Dispose</span>()
+    <span class="i">provider</span><span class="o">.</span><span class="i">CloseAllBuffers</span>()
+
+    <span class="i">arr</span>
+</code></pre></td>
+</tr>
+</table>
+<h2><a name="MatrixExamples" class="anchor" href="#MatrixExamples">MatrixExamples</a></h2>
+<ul>
+<li>Following function computes the result of the addition of matrix 'mat2' to the matrix 'mat1'</li>
+</ul>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+<span class="l">21: </span>
+<span class="l">22: </span>
+<span class="l">23: </span>
+<span class="l">24: </span>
+<span class="l">25: </span>
+<span class="l">26: </span>
+<span class="l">27: </span>
+<span class="l">28: </span>
+<span class="l">29: </span>
+<span class="l">30: </span>
+<span class="l">31: </span>
+<span class="l">32: </span>
+<span class="l">33: </span>
+<span class="l">34: </span>
+<span class="l">35: </span>
+<span class="l">36: </span>
+<span class="l">37: </span>
+<span class="l">38: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span class="i">Addition</span> (<span class="i">mat1</span><span class="o">:</span> <span class="i">array</span><span class="o">&lt;</span><span class="i">float</span><span class="o">&gt;</span>) (<span class="i">mat2</span><span class="o">:</span> <span class="i">array</span><span class="o">&lt;</span><span class="i">float</span><span class="o">&gt;</span>) <span class="i">rows</span> <span class="i">columns</span> <span class="o">=</span>
+
+    <span class="k">let</span> <span class="i">localWorkSize0</span> <span class="o">=</span> <span class="n">2</span>
+    <span class="k">let</span> <span class="i">localWorkSize1</span> <span class="o">=</span> <span class="n">2</span>
+    <span class="k">let</span> <span class="i">platformName</span> <span class="o">=</span> <span class="s">&quot;NVIDIA*&quot;</span>
+    <span class="k">let</span> <span class="i">deviceType</span> <span class="o">=</span> <span class="i">DeviceType</span><span class="o">.</span><span class="i">Default</span>        
+    
+    <span class="k">let</span> <span class="i">provider</span> <span class="o">=</span>
+        <span class="k">try</span>  <span class="i">ComputeProvider</span><span class="o">.</span><span class="i">Create</span>(<span class="i">platformName</span>, <span class="i">deviceType</span>)
+        <span class="k">with</span> 
+        | <span class="i">ex</span> <span class="k">-&gt;</span> <span class="i">failwith</span> <span class="i">ex</span><span class="o">.</span><span class="i">Message</span>
+   
+    <span class="k">let</span> <span class="i">commandQueue</span> <span class="o">=</span> <span class="k">new</span> <span class="i">CommandQueue</span>(<span class="i">provider</span>, <span class="i">provider</span><span class="o">.</span><span class="i">Devices</span> <span class="o">|&gt;</span> <span class="i">Seq</span><span class="o">.</span><span class="i">head</span>)    
+
+    <span class="k">let</span> <span class="i">command</span> <span class="o">=</span> 
+        &lt;@
+            <span class="k">fun</span> (<span class="i">rng</span><span class="o">:</span><span class="i">_2D</span>) (<span class="i">a</span><span class="o">:</span><span class="i">array</span><span class="o">&lt;</span>_<span class="o">&gt;</span>) (<span class="i">b</span><span class="o">:</span><span class="i">array</span><span class="o">&lt;</span>_<span class="o">&gt;</span>) (<span class="i">c</span><span class="o">:</span><span class="i">array</span><span class="o">&lt;</span>_<span class="o">&gt;</span>) <span class="k">-&gt;</span>
+                <span class="k">let</span> <span class="i">x</span> <span class="o">=</span> <span class="i">rng</span><span class="o">.</span><span class="i">GlobalID1</span>
+                <span class="k">let</span> <span class="i">y</span> <span class="o">=</span> <span class="i">rng</span><span class="o">.</span><span class="i">GlobalID0</span>                
+                <span class="i">c</span><span class="o">.</span>[<span class="i">y</span> <span class="o">*</span> <span class="i">columns</span> <span class="o">+</span> <span class="i">x</span>] <span class="o">&lt;-</span> <span class="i">a</span><span class="o">.</span>[<span class="i">y</span> <span class="o">*</span> <span class="i">columns</span> <span class="o">+</span> <span class="i">x</span>] <span class="o">+</span> <span class="i">b</span><span class="o">.</span>[<span class="i">y</span> <span class="o">*</span> <span class="i">columns</span> <span class="o">+</span> <span class="i">x</span>] 
+        @&gt;
+
+    <span class="k">let</span> <span class="i">a</span> <span class="o">=</span> <span class="i">mat1</span>
+    <span class="k">let</span> <span class="i">b</span> <span class="o">=</span> <span class="i">mat2</span>
+    <span class="k">let</span> <span class="i">res</span> <span class="o">=</span> <span class="i">Array</span><span class="o">.</span><span class="i">zeroCreate</span>(<span class="i">rows</span> <span class="o">*</span> <span class="i">columns</span>)
+
+    <span class="k">let</span> <span class="i">kernel</span>, <span class="i">kernelPrepare</span>, <span class="i">kernelRun</span> <span class="o">=</span> <span class="i">provider</span><span class="o">.</span><span class="i">Compile</span> <span class="i">command</span>
+    <span class="k">let</span> <span class="i">d</span> <span class="o">=</span>(<span class="k">new</span> <span class="i">_2D</span>(<span class="i">rows</span>, <span class="i">columns</span>, <span class="i">localWorkSize0</span>, <span class="i">localWorkSize1</span>))
+    <span class="i">kernelPrepare</span> <span class="i">d</span> <span class="i">a</span> <span class="i">b</span> <span class="i">res</span>
+
+    <span class="k">let</span> _ <span class="o">=</span> <span class="i">commandQueue</span><span class="o">.</span><span class="i">Add</span>(<span class="i">kernelRun</span>())
+    <span class="k">let</span> _ <span class="o">=</span> <span class="i">commandQueue</span><span class="o">.</span><span class="i">Add</span>(<span class="i">res</span><span class="o">.</span><span class="i">ToHost</span> <span class="i">provider</span>)<span class="o">.</span><span class="i">Finish</span>()
+    <span class="i">commandQueue</span><span class="o">.</span><span class="i">Dispose</span>()
+    <span class="i">provider</span><span class="o">.</span><span class="i">Dispose</span>()
+    <span class="i">provider</span><span class="o">.</span><span class="i">CloseAllBuffers</span>()
+
+    <span class="i">res</span>
+    
+</code></pre></td>
+</tr>
+</table>
+<ul>
+<li>Following function computes the result of multiplying matrix 'mat' by constant</li>
+</ul>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+<span class="l">21: </span>
+<span class="l">22: </span>
+<span class="l">23: </span>
+<span class="l">24: </span>
+<span class="l">25: </span>
+<span class="l">26: </span>
+<span class="l">27: </span>
+<span class="l">28: </span>
+<span class="l">29: </span>
+<span class="l">30: </span>
+<span class="l">31: </span>
+<span class="l">32: </span>
+<span class="l">33: </span>
+<span class="l">34: </span>
+<span class="l">35: </span>
+<span class="l">36: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span class="i">ConstantAndMatrixMultiply</span> (<span class="i">mat</span><span class="o">:</span> <span class="i">array</span><span class="o">&lt;</span><span class="i">int64</span><span class="o">&gt;</span>) <span class="i">constant</span> <span class="i">rows</span> <span class="i">columns</span> <span class="o">=</span>
+    
+    <span class="k">let</span> <span class="i">localWorkSize0</span> <span class="o">=</span> <span class="n">2</span>
+    <span class="k">let</span> <span class="i">localWorkSize1</span> <span class="o">=</span> <span class="n">2</span>
+    <span class="k">let</span> <span class="i">platformName</span> <span class="o">=</span> <span class="s">&quot;NVIDIA*&quot;</span>
+    <span class="k">let</span> <span class="i">deviceType</span> <span class="o">=</span> <span class="i">DeviceType</span><span class="o">.</span><span class="i">Default</span>
+    
+    <span class="k">let</span> <span class="i">provider</span> <span class="o">=</span>
+        <span class="k">try</span>  <span class="i">ComputeProvider</span><span class="o">.</span><span class="i">Create</span>(<span class="i">platformName</span>, <span class="i">deviceType</span>)
+        <span class="k">with</span> 
+        | <span class="i">ex</span> <span class="k">-&gt;</span> <span class="i">failwith</span> <span class="i">ex</span><span class="o">.</span><span class="i">Message</span>
+   
+    <span class="k">let</span> <span class="i">commandQueue</span> <span class="o">=</span> <span class="k">new</span> <span class="i">CommandQueue</span>(<span class="i">provider</span>, <span class="i">provider</span><span class="o">.</span><span class="i">Devices</span> <span class="o">|&gt;</span> <span class="i">Seq</span><span class="o">.</span><span class="i">head</span>)    
+
+    <span class="k">let</span> <span class="i">command</span> <span class="o">=</span> 
+        &lt;@
+            <span class="k">fun</span> (<span class="i">rng</span><span class="o">:</span><span class="i">_2D</span>) (<span class="i">a</span><span class="o">:</span><span class="i">array</span><span class="o">&lt;</span>_<span class="o">&gt;</span>) <span class="i">c</span> <span class="k">-&gt;</span>
+                <span class="k">let</span> <span class="i">x</span> <span class="o">=</span> <span class="i">rng</span><span class="o">.</span><span class="i">GlobalID1</span>
+                <span class="k">let</span> <span class="i">y</span> <span class="o">=</span> <span class="i">rng</span><span class="o">.</span><span class="i">GlobalID0</span>                
+                <span class="i">a</span><span class="o">.</span>[<span class="i">y</span> <span class="o">*</span> <span class="i">columns</span> <span class="o">+</span> <span class="i">x</span>] <span class="o">&lt;-</span> <span class="i">a</span><span class="o">.</span>[<span class="i">y</span> <span class="o">*</span> <span class="i">columns</span> <span class="o">+</span> <span class="i">x</span>] <span class="o">*</span> <span class="i">c</span>
+        @&gt;
+
+    <span class="k">let</span> <span class="i">a</span> <span class="o">=</span> <span class="i">mat</span>
+    <span class="k">let</span> <span class="i">c</span> <span class="o">=</span> <span class="i">constant</span>
+
+    <span class="k">let</span> <span class="i">kernel</span>, <span class="i">kernelPrepare</span>, <span class="i">kernelRun</span> <span class="o">=</span> <span class="i">provider</span><span class="o">.</span><span class="i">Compile</span> <span class="i">command</span>
+    <span class="k">let</span> <span class="i">d</span> <span class="o">=</span>(<span class="k">new</span> <span class="i">_2D</span>(<span class="i">rows</span>, <span class="i">columns</span>, <span class="i">localWorkSize0</span>, <span class="i">localWorkSize1</span>))
+    <span class="i">kernelPrepare</span> <span class="i">d</span> <span class="i">a</span> <span class="i">c</span>
+
+    <span class="k">let</span> _ <span class="o">=</span> <span class="i">commandQueue</span><span class="o">.</span><span class="i">Add</span>(<span class="i">kernelRun</span>())
+    <span class="k">let</span> _ <span class="o">=</span> <span class="i">commandQueue</span><span class="o">.</span><span class="i">Add</span>(<span class="i">a</span><span class="o">.</span><span class="i">ToHost</span> <span class="i">provider</span>)<span class="o">.</span><span class="i">Finish</span>()
+    <span class="i">commandQueue</span><span class="o">.</span><span class="i">Dispose</span>()
+    <span class="i">provider</span><span class="o">.</span><span class="i">Dispose</span>()
+    <span class="i">provider</span><span class="o">.</span><span class="i">CloseAllBuffers</span>()
+
+    <span class="i">a</span>
+</code></pre></td>
+</tr>
+</table>
+<ul>
+<li>Following function computes upper triangular matrix from matrix 'mat'</li>
+</ul>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+<span class="l">21: </span>
+<span class="l">22: </span>
+<span class="l">23: </span>
+<span class="l">24: </span>
+<span class="l">25: </span>
+<span class="l">26: </span>
+<span class="l">27: </span>
+<span class="l">28: </span>
+<span class="l">29: </span>
+<span class="l">30: </span>
+<span class="l">31: </span>
+<span class="l">32: </span>
+<span class="l">33: </span>
+<span class="l">34: </span>
+<span class="l">35: </span>
+<span class="l">36: </span>
+<span class="l">37: </span>
+<span class="l">38: </span>
+<span class="l">39: </span>
+<span class="l">40: </span>
+<span class="l">41: </span>
+<span class="l">42: </span>
+<span class="l">43: </span>
+<span class="l">44: </span>
+<span class="l">45: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span class="i">TriMat</span> (<span class="i">mat</span><span class="o">:</span> <span class="i">array</span><span class="o">&lt;</span><span class="i">float</span><span class="o">&gt;</span>) <span class="i">rows</span> <span class="i">columns</span> <span class="o">=</span>
+    
+    <span class="k">let</span> <span class="i">localWorkSize0</span> <span class="o">=</span> <span class="n">2</span>
+    <span class="k">let</span> <span class="i">localWorkSize1</span> <span class="o">=</span> <span class="n">2</span>
+    <span class="k">let</span> <span class="k">mutable</span> <span class="i">size</span> <span class="o">=</span> <span class="i">rows</span>
+    <span class="k">let</span> <span class="i">platformName</span> <span class="o">=</span> <span class="s">&quot;NVIDIA*&quot;</span>
+    <span class="k">let</span> <span class="i">deviceType</span> <span class="o">=</span> <span class="i">DeviceType</span><span class="o">.</span><span class="i">Default</span>
+    
+    <span class="k">if</span> <span class="i">rows</span> <span class="o">&lt;&gt;</span> <span class="i">columns</span>
+    <span class="k">then</span> <span class="i">failwith</span> <span class="s">&quot;Can not compute triangle matrix&quot;</span>
+
+    <span class="k">for</span> <span class="i">i</span> <span class="k">in</span> <span class="n">0</span> <span class="o">..</span> <span class="i">rows</span> <span class="o">-</span> <span class="n">1</span> <span class="k">do</span>
+        <span class="k">if</span> <span class="i">mat</span><span class="o">.</span>[<span class="i">i</span> <span class="o">*</span> <span class="i">rows</span> <span class="o">+</span> <span class="i">i</span>] <span class="o">=</span> <span class="n">0.0</span>
+        <span class="k">then</span> <span class="i">failwith</span> <span class="s">&quot;Can not compute triangle matrix&quot;</span>
+    
+    <span class="k">let</span> <span class="i">provider</span> <span class="o">=</span>
+        <span class="k">try</span>  <span class="i">ComputeProvider</span><span class="o">.</span><span class="i">Create</span>(<span class="i">platformName</span>, <span class="i">deviceType</span>)
+        <span class="k">with</span> 
+        | <span class="i">ex</span> <span class="k">-&gt;</span> <span class="i">failwith</span> <span class="i">ex</span><span class="o">.</span><span class="i">Message</span>
+   
+    <span class="k">let</span> <span class="i">commandQueue</span> <span class="o">=</span> <span class="k">new</span> <span class="i">CommandQueue</span>(<span class="i">provider</span>, <span class="i">provider</span><span class="o">.</span><span class="i">Devices</span> <span class="o">|&gt;</span> <span class="i">Seq</span><span class="o">.</span><span class="i">head</span>)    
+
+    <span class="k">let</span> <span class="i">command</span> <span class="o">=</span> 
+        &lt;@
+            <span class="k">fun</span> (<span class="i">rng</span><span class="o">:</span><span class="i">_2D</span>) (<span class="i">a</span><span class="o">:</span> <span class="i">array</span><span class="o">&lt;</span>_<span class="o">&gt;</span>) <span class="k">-&gt;</span>                
+                <span class="k">for</span> <span class="i">y</span> <span class="k">in</span> <span class="n">0</span> <span class="o">..</span> <span class="i">size</span> <span class="o">-</span> <span class="n">2</span> <span class="k">do</span>
+                    <span class="k">for</span> <span class="i">x</span> <span class="k">in</span> <span class="i">y</span> <span class="o">+</span> <span class="n">1</span> <span class="o">..</span> <span class="i">size</span> <span class="o">-</span> <span class="n">1</span> <span class="k">do</span>
+                        <span class="k">let</span> <span class="i">k</span> <span class="o">=</span> <span class="i">a</span><span class="o">.</span>[<span class="i">x</span> <span class="o">*</span> <span class="i">size</span> <span class="o">+</span> <span class="i">y</span>] <span class="o">/</span> <span class="i">a</span><span class="o">.</span>[<span class="i">y</span> <span class="o">*</span> <span class="i">size</span> <span class="o">+</span> <span class="i">y</span>]
+                        <span class="k">for</span> <span class="i">i</span> <span class="k">in</span> <span class="n">0</span> <span class="o">..</span> <span class="i">size</span> <span class="o">-</span> <span class="n">1</span> <span class="k">do</span>
+                            <span class="i">a</span><span class="o">.</span>[<span class="i">x</span> <span class="o">*</span> <span class="i">size</span> <span class="o">+</span> <span class="i">i</span>] <span class="o">&lt;-</span> <span class="i">a</span><span class="o">.</span>[<span class="i">x</span> <span class="o">*</span> <span class="i">size</span> <span class="o">+</span> <span class="i">i</span>] <span class="o">-</span> <span class="i">a</span><span class="o">.</span>[<span class="i">y</span> <span class="o">*</span> <span class="i">size</span> <span class="o">+</span> <span class="i">i</span>] <span class="o">*</span> <span class="i">k</span>
+        @&gt;
+
+    <span class="k">let</span> <span class="i">a</span> <span class="o">=</span> <span class="i">mat</span>
+
+    <span class="k">let</span> <span class="i">kernel</span>, <span class="i">kernelPrepare</span>, <span class="i">kernelRun</span> <span class="o">=</span> <span class="i">provider</span><span class="o">.</span><span class="i">Compile</span> <span class="i">command</span>
+    <span class="k">let</span> <span class="i">d</span> <span class="o">=</span>(<span class="k">new</span> <span class="i">_2D</span>(<span class="i">rows</span>, <span class="i">columns</span>, <span class="i">localWorkSize0</span>, <span class="i">localWorkSize1</span>))
+    <span class="i">kernelPrepare</span> <span class="i">d</span> <span class="i">a</span>
+
+    <span class="k">let</span> _ <span class="o">=</span> <span class="i">commandQueue</span><span class="o">.</span><span class="i">Add</span>(<span class="i">kernelRun</span>())
+    <span class="k">let</span> _ <span class="o">=</span> <span class="i">commandQueue</span><span class="o">.</span><span class="i">Add</span>(<span class="i">a</span><span class="o">.</span><span class="i">ToHost</span> <span class="i">provider</span>)<span class="o">.</span><span class="i">Finish</span>()
+    <span class="i">commandQueue</span><span class="o">.</span><span class="i">Dispose</span>()
+    <span class="i">provider</span><span class="o">.</span><span class="i">Dispose</span>()
+    <span class="i">provider</span><span class="o">.</span><span class="i">CloseAllBuffers</span>()
+
+    <span class="i">a</span>
 </code></pre></td>
 </tr>
 </table>
 <p>Some more info</p>
 
-<div class="tip" id="fs1">namespace Microsoft.FSharp</div>
 
         </div>
         <div class="span3">
@@ -58,7 +527,7 @@
             <li class="nav-header">Brahma.FSharp.Examples</li>
             <li><a href="/Brahma.FSharp.Examples/index.html">Home page</a></li>
             <li class="divider"></li>
-            <li><a href="http://nuget.org/packages/Brahma.FSharp.Examples">Get Library via NuGet</a></li>
+            <li><a href="http://nuget.org/packages/Brahma.FSharp">Get Library via NuGet</a></li>
             <li><a href="https://github.com/SusaninaJulia/Brahma.FSharp.Examples">Source Code on GitHub</a></li>
             <li><a href="/Brahma.FSharp.Examples/license.html">License</a></li>
             <li><a href="/Brahma.FSharp.Examples/release-notes.html">Release Notes</a></li>
@@ -68,6 +537,9 @@
 
             <li class="nav-header">Documentation</li>
             <li><a href="/Brahma.FSharp.Examples/reference/index.html">API Reference</a></li>
+			
+			<li class="nav-header">Reports</li>
+            <li><a href="https://docs.google.com/document/d/1-yrWay3z8YpL80gJd9tur9TFfG4RduuXDIr21do4JS8/edit">Brahma.FSharp + MailboxProcessor</a></li>
           </ul>
         </div>
       </div>
