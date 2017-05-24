@@ -21,7 +21,7 @@ let info =
     "project-author", "SusaninaJulia"
     "project-summary", "Project has no summmary; update build.fsx"
     "project-github", githubLink
-    "project-nuget", "http://nuget.org/packages/Brahma.FSharp.Examples" ]
+    "project-nuget", "http://nuget.org/packages/Brahma.FSharp" ]
 
 // --------------------------------------------------------------------------------------
 // For typical project, no changes are needed below
