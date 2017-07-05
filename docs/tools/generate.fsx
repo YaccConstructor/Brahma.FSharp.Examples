@@ -13,12 +13,12 @@ let referenceBinaries = []
 // Web site location for the generated documentation
 let website = "/Brahma.FSharp.Examples"
 
-let githubLink = "https://github.com/SusaninaJulia/Brahma.FSharp.Examples"
+let githubLink = "https://github.com/YaccConstructor/Brahma.FSharp.Examples"
 
 // Specify more information about your project
 let info =
   [ "project-name", "Brahma.FSharp.Examples"
-    "project-author", "SusaninaJulia"
+    "project-author", "YaccConstructor"
     "project-summary", "Project has no summmary; update build.fsx"
     "project-github", githubLink
     "project-nuget", "http://nuget.org/packages/Brahma.FSharp" ]

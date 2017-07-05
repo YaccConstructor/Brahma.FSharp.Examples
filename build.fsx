@@ -39,7 +39,7 @@ let summary = "Examples of Brahma.FSharp usage."
 let description = "Examples of Brahma.FSharp usage."
 
 // List of author names (for NuGet package)
-let authors = [ "SusaninaJulia" ]
+let authors = [ "YaccConstructor" ]
 
 // Tags for your project (for NuGet package)
 let tags = ""
@@ -55,14 +55,14 @@ let testAssemblies = "tests/**/bin" </> configuration </> "*Tests*.dll"
 
 // Git configuration (used for publishing documentation in gh-pages branch)
 // The profile where the project is posted
-let gitOwner = "SusaninaJulia"
+let gitOwner = "YaccConstructor"
 let gitHome = sprintf "%s/%s" "https://github.com" gitOwner
 
 // The name of the project on GitHub
 let gitName = "Brahma.FSharp.Examples"
 
 // The url for the raw files hosted
-let gitRaw = environVarOrDefault "gitRaw" "https://raw.githubusercontent.com/SusaninaJulia"
+let gitRaw = environVarOrDefault "gitRaw" "https://raw.githubusercontent.com/YaccConstructor"
 
 // --------------------------------------------------------------------------------------
 // END TODO: The rest of the file includes standard build steps
